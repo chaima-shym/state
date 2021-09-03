@@ -1,25 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react'
+import Shows from './components/Shows.js';
+import ProfilePicture from './ProfilePicture.jpg'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  state = {
+   Personne: {
+   fullName:"Chaima Bejaoui",
+   bio :"Hi everyone",
+   imgSrc:ProfilePicture,
+  profession:"student"},
+  shows:false,
+  time:0
+  
+  }
+componentDidMount(){
+  setInterval(()=>{
+this.setState({time:this.state.time+1})
+  },1000)
+}
+  Change = () => {
+    this.setState({
+      shows: !this.state.shows,
+      time:0
+    })
+  }
+  
+  render() {
+    return (
+      <div style={{display:"flex",flexDirection:"column", margin:"0px 500px", }}>
+     <button className='btn' onClick={this.Change} style={{margin:"40px"}}>{this.state.shows?"Hide":"Show"}</button>
+     {this.state.shows &&<Shows Personne={this.state.Personne}/>}
+     <p>{this.state.shows&&this.state.time}</p>
+      </div>
+    )
+  }
 }
 
-export default App;
+
+
+
